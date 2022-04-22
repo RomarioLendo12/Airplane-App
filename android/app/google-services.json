@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "954875206121",
+    "project_id": "airplane-75da0",
+    "storage_bucket": "airplane-75da0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954875206121:android:10a095c3d066e0ed74d378",
+        "android_client_info": {
+          "package_name": "com.romario.airplane"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "954875206121-gnjeei06bq4scb4mtu54qdg4aef0juui.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClGtIA8beercXrpdFU78hxCvE-IdZrmVM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "954875206121-gnjeei06bq4scb4mtu54qdg4aef0juui.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
