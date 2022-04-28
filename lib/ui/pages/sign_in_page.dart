@@ -6,14 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // ignore_for_file: prefer_const_constructors
-class SignUpPage extends StatelessWidget {
-  SignUpPage({Key? key}) : super(key: key);
+class SignInPage extends StatelessWidget {
+  SignInPage({Key? key}) : super(key: key);
 
-  final TextEditingController nameController = TextEditingController(text: '');
   final TextEditingController emailController = TextEditingController(text: '');
   final TextEditingController passwordController =
       TextEditingController(text: '');
-  final TextEditingController hobbyController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
@@ -21,21 +19,13 @@ class SignUpPage extends StatelessWidget {
       return Container(
         margin: EdgeInsets.only(top: 30),
         child: Text(
-          'Join us and get\nyour next journey',
+          'Sign In with your\nexisting account',
           style: blackTextStyle.copyWith(fontWeight: semiBold, fontSize: 24),
         ),
       );
     }
 
     Widget inputSection() {
-      Widget nameInput() {
-        return CustomTextFormFiels(
-          title: 'Full Name',
-          hintText: 'Your full name',
-          controller: nameController,
-        );
-      }
-
       Widget emailInput() {
         return CustomTextFormFiels(
           title: 'Email Address',
@@ -53,19 +43,11 @@ class SignUpPage extends StatelessWidget {
         );
       }
 
-      Widget hobbyInput() {
-        return CustomTextFormFiels(
-          title: 'Hobby',
-          hintText: 'Your hobby',
-          controller: hobbyController,
-        );
-      }
-
       Widget submitButton() {
         return BlocConsumer<AuthCubit, AuthState>(listener: (context, state) {
           if (state is AuthSuccess) {
             Navigator.pushNamedAndRemoveUntil(
-                context, '/bonus', (route) => false);
+                context, '/main', (route) => false);
           } else if (state is AuthFailed) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -82,15 +64,14 @@ class SignUpPage extends StatelessWidget {
           }
 
           return CustomButton(
-            title: 'Get Started',
+            title: 'Sign In',
             onPressed: () {
               print(passwordController.text);
 
-              context.read<AuthCubit>().signUp(
-                  email: emailController.text,
-                  password: passwordController.text,
-                  name: nameController.text,
-                  hobby: hobbyController.text);
+              context.read<AuthCubit>().signIn(
+                    email: emailController.text,
+                    password: passwordController.text,
+                  );
             },
             width: 287,
           );
@@ -105,26 +86,20 @@ class SignUpPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(defaultRadius),
         ),
         child: Column(
-          children: [
-            nameInput(),
-            emailInput(),
-            passwordInput(),
-            hobbyInput(),
-            submitButton()
-          ],
+          children: [emailInput(), passwordInput(), submitButton()],
         ),
       );
     }
 
-    Widget signInButton() {
+    Widget tacButton() {
       return GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, '/sign-in');
+          Navigator.pushNamed(context, '/sign-up');
         },
         child: Container(
           alignment: Alignment.center,
           child: Text(
-            'Have an account? Sign In',
+            'Dont\'t have an account? Sign Up',
             style: greyTextStyle.copyWith(
                 fontWeight: light,
                 fontSize: 16,
@@ -139,7 +114,7 @@ class SignUpPage extends StatelessWidget {
         backgroundColor: kBackgroundColor,
         body: ListView(
           padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-          children: [title(), inputSection(), signInButton()],
+          children: [title(), inputSection(), tacButton()],
         ),
       ),
     );

@@ -1,6 +1,8 @@
+import 'package:airplane/cubit/auth_cubit.dart';
 import 'package:airplane/shared/theme.dart';
 import 'package:airplane/ui/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // ignore_for_file: prefer_const_constructors
 class BonusPage extends StatelessWidget {
@@ -9,74 +11,84 @@ class BonusPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget bonusCard() {
-      return Container(
-        padding: EdgeInsets.all(defaultMargin),
-        width: 300,
-        height: 211,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/image_card.png'),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: kPrimaryColor.withOpacity(0.5),
-                blurRadius: 50,
-                offset: Offset(0, 10),
-              ),
-            ]),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      return BlocBuilder<AuthCubit, AuthState>(
+        builder: (context, state) {
+          if (state is AuthSuccess) {
+            return Container(
+              padding: EdgeInsets.all(defaultMargin),
+              width: 300,
+              height: 211,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/image_card.png'),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: kPrimaryColor.withOpacity(0.5),
+                      blurRadius: 50,
+                      offset: Offset(0, 10),
+                    ),
+                  ]),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
                     children: [
-                      Text(
-                        'Name',
-                        style: whiteTextStyle.copyWith(fontWeight: light),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Name',
+                              style: whiteTextStyle.copyWith(fontWeight: light),
+                            ),
+                            Text(
+                              state.user.name,
+                              style: whiteTextStyle.copyWith(
+                                  fontWeight: medium, fontSize: 20),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: 24,
+                        width: 24,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/icon_plane.png'),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 6,
                       ),
                       Text(
-                        'Kezia Anne',
+                        'Pay',
                         style: whiteTextStyle.copyWith(
-                            fontWeight: medium, fontSize: 20),
+                            fontWeight: medium, fontSize: 16),
                       )
                     ],
                   ),
-                ),
-                Container(
-                  height: 24,
-                  width: 24,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/icon_plane.png'),
-                    ),
+                  SizedBox(
+                    height: 41,
                   ),
-                ),
-                SizedBox(
-                  width: 6,
-                ),
-                Text(
-                  'Pay',
-                  style:
-                      whiteTextStyle.copyWith(fontWeight: medium, fontSize: 16),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 41,
-            ),
-            Text(
-              'Balance',
-              style: whiteTextStyle.copyWith(fontWeight: light, fontSize: 14),
-            ),
-            Text(
-              'IDR 280.000.000',
-              style: whiteTextStyle.copyWith(fontWeight: medium, fontSize: 26),
-            )
-          ],
-        ),
+                  Text(
+                    'Balance',
+                    style: whiteTextStyle.copyWith(
+                        fontWeight: light, fontSize: 14),
+                  ),
+                  Text(
+                    'IDR 280.000.000',
+                    style: whiteTextStyle.copyWith(
+                        fontWeight: medium, fontSize: 26),
+                  )
+                ],
+              ),
+            );
+          } else {
+            return SizedBox();
+          }
+        },
       );
     }
 
