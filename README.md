@@ -1,6 +1,6 @@
 # airplane
 
-A new Flutter project.
+Aplikasi untuk melakukan booking tiket pesawat.
 
 ## Getting Started
 
